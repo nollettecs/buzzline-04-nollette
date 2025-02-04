@@ -1,11 +1,33 @@
-# buzzline-04-case
+# buzzline-04-nollette
+# Cole Nollette
+   - 2/4/25
+   - 44-671 Module 4
+
+## Building visualizations into our Consumer
 
 We can analyze and visualize different types of streaming data as the information arrives.
 
-The producers don't change from buzzline-03-case - they write the same information to a Kafka topic, except the csv producer for the smart smoker has been modified to not run continuously. It will stop after reading all the rows in the CSV file. 
-The consumers have been enhanced to add visualization. 
+### **New Enhancements in the Custom Producer and Consumer**
 
-This project uses matplotlib and its animation capabilities for visualization. 
+In this version of Buzzline, we have made significant enhancements to both the **producer** and **consumer**:
+
+1. **Custom JSON Producer**:
+   - Generates random messages with dynamically assigned **categories** based on **keywords**.
+   - Assigns a **sentiment score** to each message (stub function for now).
+   - Streams data to both a file (`project_live.json`) and a Kafka topic if available.
+   - Includes error handling for Kafka connectivity issues.
+
+2. **Custom JSON Consumer with Live Pie Chart**:
+   - Consumes messages from Kafka in **real-time**.
+   - Extracts **category** from each message and dynamically updates a **pie chart** to visualize category distribution.
+   - Uses **Matplotlib's animation capabilities** to ensure real-time visualization updates.
+   - Manages a **dictionary structure (`category_counts`)** to efficiently count and update category occurrences.
+
+These enhancements provide better insights into the streaming data and make it easier to visualize trends dynamically.
+
+---
+
+## This project uses matplotlib and its animation capabilities for visualization. 
 
 It generates three applications:
 
@@ -62,13 +84,6 @@ Start the producer to generate the messages.
 In VS Code, open a NEW terminal.
 Use the commands below to activate .venv, and start the producer. 
 
-Windows:
-
-```shell
-.venv\Scripts\activate
-py -m producers.basic_json_producer_case
-```
-
 Mac/Linux:
 ```zsh
 source .venv/bin/activate
@@ -82,12 +97,6 @@ Start the associated consumer that will process and visualize the messages.
 In VS Code, open a NEW terminal in your root project folder. 
 Use the commands below to activate .venv, and start the consumer. 
 
-Windows:
-```shell
-.venv\Scripts\activate
-py -m consumers.basic_json_consumer_case
-```
-
 Mac/Linux:
 ```zsh
 source .venv/bin/activate
@@ -100,7 +109,6 @@ Review the code for both the producer and the consumer.
 Understand how the information is generated, written to a file, and read and processed. 
 Review the visualization code to see how the live chart is produced. 
 When done, remember to kill the associated terminals for the producer and consumer. 
-
 
 ---
 
@@ -120,7 +128,6 @@ For each one, you will need to:
    - Look in the producers folder for json_producer_case.
    - Look in the consumers folder for json_consumer_case.
 
-
 ### Review the Application Code
 
 Review the code for both the producer and the consumer. 
@@ -136,77 +143,16 @@ When done, remember to kill the associated terminals for the producer and consum
 
 ---
 
-## Task 7. Start a (Kafka-based) CSV Streaming Application
-
-This will take two terminals:
-
-1. One to run the producer which writes to a Kafka topic. 
-2. Another to run the consumer which reads from that Kafka topic.
-
-For each one, you will need to: 
-1. Open a new terminal. 
-2. Activate your .venv.
-3. Know the command that works on your machine to execute python (e.g. py or python3).
-4. Know how to use the -m (module flag to run your file as a module).
-5. Know the full name of the module you want to run. 
-   - Look in the producers folder for csv_producer_case.
-   - Look in the consumers folder for csv_consumer_case.
-
-### Review the Application Code
-
-Review the code for both the producer and the consumer. 
-Understand how the information is generated and written to a Kafka topic, and consumed from the topic and processed. 
-Review the visualization code to see how the live chart is produced. 
-
-Compare the JSON application to the CSV streaming application.
-By organizing code into reusable functions, which functions can be reused? 
-Which functions must be updated based on the type of data?
-How does the visualization code get changed based on the type of data and type of chart used?
-Which aspects are similar between the different types of data? 
-
-When done, remember to kill the associated terminals for the producer and consumer. 
-
----
-
-## Possible Explorations
-
-- JSON: Process messages in batches of 5 messages.
-- JSON:Limit the display to the top 3 authors.
-- Modify chart appearance.
-- Stream a different set of data and visualize the custom stream with an appropriate chart. 
-- How do we find out what types of charts are available? 
-- How do we find out what attributes and colors are available?
-
----
-
-## Later Work Sessions
-When resuming work on this project:
-1. Open the folder in VS Code. 
-2. Start the Zookeeper service.
-3. Start the Kafka service.
-4. Activate your local project virtual environment (.env).
-
-## Save Space
-To save disk space, you can delete the .venv folder when not actively working on this project.
-You can always recreate it, activate it, and reinstall the necessary packages later. 
-Managing Python virtual environments is a valuable skill. 
-
-## License
-This project is licensed under the MIT License as an example project. 
-You are encouraged to fork, copy, explore, and modify the code as you like. 
-See the [LICENSE](LICENSE.txt) file for more.
-
 ## Live Chart Examples
 
 Live Bar Chart (JSON file streaming)
 
 ![Basic JSON (file-exchange)](images/live_bar_chart_basic_example.jpg)
 
-Live Bar Chart (Kafka JSON streaming)
+Live Pie Chart (Kafka JSON streaming)
 
-![JSON (Kafka)](images/live_bar_chart_example.jpg)
+![JSON (Kafka)](images/live_pie_chart_example.jpg)
 
 Live Line Chart with Alert (Kafka CSV streaming)
 
 ![CSV (Kafka)](images/live_line_chart_example.jpg)
-
